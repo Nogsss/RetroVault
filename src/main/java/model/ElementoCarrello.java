@@ -10,7 +10,14 @@ public class ElementoCarrello implements Serializable{
 	private int quantità;
 	
 	public ElementoCarrello() {}
-
+	
+	
+	//Costruttore pieno per pulizia del codice in Carrello.java
+	public ElementoCarrello(Prodotto prodotto, int quantità) {
+		this.prodotto = prodotto;
+		this.quantità = quantità;
+	}
+	
 	//getters e setters 
 	
 	public Prodotto getProdotto() {
