@@ -17,7 +17,7 @@ public class Prodotto implements Serializable{
 	
 	public Prodotto() {}
 	
-	//getters and setters
+	//getters e setters
 	
 	public int getId() {
         return id;
