@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class Utente implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -11,6 +12,7 @@ public class Utente implements Serializable{
 	private String email;
 	private String password;
 	private boolean admin;
+	private Date dataRegistrazione;
 	
 	public Utente() {}
 
@@ -62,6 +64,14 @@ public class Utente implements Serializable{
 
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
+	}
+
+	public Date getDataRegistrazione() {
+		return dataRegistrazione;
+	}
+
+	public void setDataRegistrazione(Date dataRegistrazione) {
+		this.dataRegistrazione = dataRegistrazione;
 	}
 	
 }
