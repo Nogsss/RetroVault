@@ -11,5 +11,5 @@ public interface OrdineDao {
 	void doSave(Ordine ordine) throws SQLException;
 	List<Ordine> doRetrieveByUser(int id) throws SQLException;
 	List<Ordine> doRetrieveAll() throws SQLException;
-	List<Ordine> doRetrieveByDate(Date inizio, Date fine);
+	List<Ordine> doRetrieveByDate(Date inizio, Date fine) throws SQLException;
 }
