@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -86,6 +87,71 @@ public class OrdineDaoImpl implements OrdineDao{
         		connection.setAutoCommit(true); //Reimposto l'autocommit a true
         	}
 		} 
+	}
+	
+	@Override
+	public synchronized List<Ordine> doRetrieveByUser(int id) throws SQLException {
+		List<Ordine> ordini = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_ORDINE + 
+        		" WHERE id_utente = ? ORDER BY Data DESC";
+        
+        try(Connection connection = ds.getConnection();
+        	PreparedStatement ps = connection.prepareStatement(query)) {
+        	
+        	ps.setInt(1, id);
+        	
+        	try(ResultSet rs = ps.executeQuery()) {
+        		while(rs.next()) {
+        			Ordine ordine = estraiOrdine(rs);
+        			caricaDettagliOrdine(connection, ordine);
+        			ordini.add(ordine);
+        		}
+        	}
+        }
+        return ordini;
+	}
+	
+	@Override
+	public synchronized List<Ordine> doRetrieveAll() throws SQLException {
+		List<Ordine> ordini = new ArrayList<>();
+		String query = "SELECT * FROM " + TABLE_ORDINE + 
+				" ORDER BY Data DESC";
+		
+		try(Connection connection = ds.getConnection();
+			PreparedStatement ps = connection.prepareStatement(query)) {
+			
+			try(ResultSet rs = ps.executeQuery()){
+				while(rs.next()) {
+					Ordine ordine = estraiOrdine(rs);
+					caricaDettagliOrdine(connection, ordine);
+					ordini.add(ordine);
+				}
+			}
+		}
+        return ordini;
+	}
+	
+	@Override
+	public synchronized List<Ordine> doRetrieveByDate(Date inizio, Date fine) throws SQLException {
+		List<Ordine> ordini = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_ORDINE + 
+        		" WHERE data BETWEEN ? AND ? ORDER BY data DESC";
+        
+        try (Connection connection = ds.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+             
+            ps.setDate(1, inizio);
+            ps.setDate(2, fine);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Ordine ordine = estraiOrdine(rs);
+                    caricaDettagliOrdine(connection, ordine);
+                    ordini.add(ordine);
+                }
+            }
+        }
+        return ordini;
 	}
 	
 	
