@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -86,4 +87,48 @@ public class OrdineDaoImpl implements OrdineDao{
         	}
 		} 
 	}
+	
+	
+	// METODI DI SUPPORTO PER NON RIPETERE CODICE //
+	
+	//Metodo per caricare i dettagli di un ordine
+	private void caricaDettagliOrdine(Connection connection, Ordine ordine) throws SQLException {
+        String query = "SELECT * FROM " + TABLE_DETTAGLIO + 
+        		" WHERE id_ordine = ?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            
+        	ps.setInt(1, ordine.getIdOrdine());
+            
+        	try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    DettaglioOrdine det = new DettaglioOrdine();
+                    det.setIdOrdine(rs.getInt("id_ordine"));
+                    det.setIdProdotto(rs.getInt("id_prodotto"));
+                    det.setQuantita(rs.getInt("quantita"));
+                    det.setPrezzoAcquisto(rs.getDouble("prezzo_acquisto"));
+                    
+                    ordine.addDettaglio(det);
+                }
+            }
+        }
+    }
+	
+	//Metodo per generare un oggetto ordine dai dati estratti dal resultset
+	private Ordine estraiOrdine(ResultSet rs) throws SQLException {
+        Ordine ordine = new Ordine();
+        ordine.setIdOrdine(rs.getInt("id_ordine"));
+        ordine.setIdUtente(rs.getInt("id_utente"));
+        ordine.setData(rs.getDate("data"));
+        ordine.setTotale(rs.getDouble("totale"));
+        ordine.setMetodoPagamento(rs.getString("metodo_pagamento"));
+        ordine.setIdTransazione(rs.getString("id_transazione"));
+        ordine.setNome(rs.getString("nome"));
+        ordine.setCognome(rs.getString("cognome"));
+        ordine.setTelefono(rs.getString("telefono"));
+        ordine.setViaNum(rs.getString("via_num"));
+        ordine.setCitta(rs.getString("citta"));
+        ordine.setCap(rs.getString("cap"));
+        ordine.setProvincia(rs.getString("provincia"));
+        return ordine;
+    }
 }
