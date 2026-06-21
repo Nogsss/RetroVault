@@ -20,7 +20,7 @@ public class Ordine implements Serializable{
 	private String cognome;
 	private String telefono;
 	private String viaNum;
-	private int cap;
+	private String cap;
 	private String provincia;
 	private String citta;
 	
@@ -110,11 +110,11 @@ public class Ordine implements Serializable{
 		this.viaNum = viaNum;
 	}
 
-	public int getCap() {
+	public String getCap() {
 		return cap;
 	}
 
-	public void setCap(int cap) {
+	public void setCap(String cap) {
 		this.cap = cap;
 	}
 
