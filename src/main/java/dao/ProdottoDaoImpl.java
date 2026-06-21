@@ -106,7 +106,7 @@ public class ProdottoDaoImpl implements ProdottoDao{
 	    }
 	 
 	 @Override
-	 public List<Prodotto> doRetrieveAll() throws SQLException {
+	 public synchronized List<Prodotto> doRetrieveAll() throws SQLException {
 		 List<Prodotto> prodotti = new ArrayList<>();
 		 String query = "SELECT * FROM " + TABLE_NAME + 
 				 " WHERE attivo = true";
