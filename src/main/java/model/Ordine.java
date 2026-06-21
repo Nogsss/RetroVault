@@ -22,6 +22,7 @@ public class Ordine implements Serializable{
 	private String viaNum;
 	private int cap;
 	private String provincia;
+	private String citta;
 	
 	private List<DettaglioOrdine> dettagli;
 	
@@ -135,5 +136,13 @@ public class Ordine implements Serializable{
 	
 	public void addDettaglio(DettaglioOrdine dettaglio) {
 		this.dettagli.add(dettaglio);
+	}
+
+	public String getCitta() {
+		return citta;
+	}
+
+	public void setCitta(String citta) {
+		this.citta = citta;
 	}
 }
