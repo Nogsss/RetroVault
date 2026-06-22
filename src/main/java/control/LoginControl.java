@@ -39,7 +39,7 @@ public class LoginControl extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Se qualcuno prova ad accedere tramite get viene rimandato alla pagina di login
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/common/login.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/common/login.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -49,7 +49,7 @@ public class LoginControl extends HttpServlet {
         String password = request.getParameter("password");
         email = validateField(email, "email", errors);
         password = validateField(password, "password", errors);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/common/login.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/common/login.jsp");
         
         //Se ci sono stati degli errori nel formato delle credenziali si viene rimandati alla pagina di login
         if (!errors.isEmpty()) {
