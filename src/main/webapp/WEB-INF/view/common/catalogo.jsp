@@ -1,0 +1,45 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalogo - RetroVault</title>
+</head>
+<body>
+
+    <header>
+        <h1>Catalogo RetroVault</h1>
+    </header>
+
+    <main>
+        <div class="prodotti-grid">
+            <!-- Controlliamo se la lista prodotti non è vuota -->
+            <c:choose>
+                <c:when test="${not empty prodotti}">
+                    <!-- Iteriamo sulla lista passata dalla Servlet -->
+                    <c:forEach items="${prodotti}" var="prodotto">
+                        <div class="prodotto-card">
+                            <img src="${pageContext.request.contextPath}/images/${prodotto.imgPath}" alt="<c:out value='${prodotto.nome}'/>">
+                            
+                            <!-- c:out ci protegge iniettando il testo in modo sicuro -->
+                            <h2><c:out value="${prodotto.nome}"/></h2>
+                            <p>Categoria: <c:out value="${prodotto.categoria}"/></p>
+                            <p><c:out value="${prodotto.descrizione}"/></p>
+                            <h3>Prezzo: <c:out value="${prodotto.prezzo}"/> &euro;</h3>
+                            
+                            <a href="${pageContext.request.contextPath}/dettaglio?id=${prodotto.id}">Vedi Dettagli</a>
+                            <a href="${pageContext.request.contextPath}/carrello?action=add&id=${prodotto.id}">Aggiungi al Carrello</a>
+                        </div>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <h2>Nessun prodotto disponibile al momento nel catalogo.</h2>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </main>
+
+</body>
+</html>
