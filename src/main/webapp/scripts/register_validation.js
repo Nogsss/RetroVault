@@ -1,6 +1,7 @@
 const emailPattern = /^\S+@\S+\.\S+$/;
 const namePattern = /^[a-zA-Z\s]+$/;
 
+
 function validateName(inputElem, spanElem) {
     if (inputElem.value.trim() === "") {
         spanElem.innerHTML = "Questo campo è obbligatorio";
