@@ -91,7 +91,7 @@ public class LoginControl extends HttpServlet {
         return value.trim();
     }
 	
-	public static String toDigest(String password) {
+	private static String toDigest(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
             byte[] digestBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
