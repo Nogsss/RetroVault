@@ -3,6 +3,7 @@ package model;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,7 +14,9 @@ public class Carrello implements Serializable{
 	private List<ElementoCarrello> prodotti;
 	
 	
-	public Carrello() {}
+	public Carrello() {
+		this.prodotti = new ArrayList<>();
+	}
 	
 	//getters e setters
 	
