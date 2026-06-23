@@ -11,11 +11,20 @@
 <body>
 
     <header>
+    	<h1>Catalogo RetroVault</h1>
+    	
         <nav>
-        <a href="${pageContext.request.contextPath}/carrello">
-            🛒 Carrello (<span id="cart-counter">${not empty sessionScope.carrello ? sessionScope.carrello.numeroElementi : '0'}</span>)
-        </a>
-    </nav>
+        	<a href="${pageContext.request.contextPath}/carrello">
+        	    🛒 Carrello (<span id="cart-counter">${not empty sessionScope.carrello ? sessionScope.carrello.numeroElementi : '0'}</span>)
+        	</a>
+        
+        	<c:if test="${sessionScope.role == 'admin'}">
+        		<a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a>
+       		</c:if>
+        	<c:if test="${not empty sessionScope.utente}">
+        	        <a href="${pageContext.request.contextPath}/logout">Logout</a>
+        	</c:if>
+    	</nav>
     </header>
 
     <main>
@@ -34,7 +43,8 @@
                             <h3>Prezzo: <c:out value="${prodotto.prezzo}"/> &euro;</h3>
                             
                             <a href="${pageContext.request.contextPath}/dettaglio?id=${prodotto.id}">Vedi Dettagli</a>
-                            <a href="${pageContext.request.contextPath}/carrello?action=add&id=${prodotto.id}">Aggiungi al Carrello</a>
+                            <button onclick="aggiungiAlCarrello(${prodotto.id}, document.getElementById('quantita_${prodotto.id}').value))">Aggiungi al Carrello</button>
+                            <input type="number" id="quantita_${prodotto.id}" name="quantita" value="1" min="1">
                         </div>
                     </c:forEach>
                 </c:when>
