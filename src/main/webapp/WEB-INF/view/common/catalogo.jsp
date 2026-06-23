@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Catalogo - RetroVault</title>
+    <script src="${pageContext.request.contextPath}/scripts/cart_ajax.js"></script>
 </head>
 <body>
 
