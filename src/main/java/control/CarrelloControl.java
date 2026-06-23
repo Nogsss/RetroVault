@@ -39,45 +39,101 @@ public class CarrelloControl extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
-        Carrello cart = (Carrello) session.getAttribute("carrello");
-        if (cart == null) {
-            cart = new Carrello();
-            session.setAttribute("carrello", cart);
-        }
+		Carrello cart;
+		synchronized (session) {
+			cart = (Carrello) session.getAttribute("carrello");
+			if (cart == null) {
+				cart = new Carrello();
+				session.setAttribute("carrello", cart);
+			}
+		}
 
-        String action = request.getParameter("action");
-        
-        //ajax
-        try {
-            if ("addAjax".equals(action)) {
-                int idProdotto = Integer.parseInt(request.getParameter("id"));
-                int quantita = Integer.parseInt(request.getParameter("quantita"));
-                Prodotto prodotto = prodottoDao.doRetrieveByKey(idProdotto);
-                
-                if (prodotto != null) {
-                    cart.aggiungiProdotto(prodotto, quantita);
-                    session.setAttribute("carrello", cart);
-                }
+		String action = request.getParameter("action");
+		
+		try {
+			if ("addAjax".equals(action)) {
+				int idProdotto = Integer.parseInt(request.getParameter("id"));
+				int quantita = Integer.parseInt(request.getParameter("quantita"));
+				Prodotto prodotto = prodottoDao.doRetrieveByKey(idProdotto);
+				
+				synchronized (session) {
+					if (prodotto != null) {
+						cart.aggiungiProdotto(prodotto, quantita);
+						session.setAttribute("carrello", cart);
+					}
+				}
 
-                response.setContentType("application/json");
-                PrintWriter out = response.getWriter();
-                JSONObject json = new JSONObject();
-                
-                json.put("nuovoTotale", cart.getProdotti().size()); 
-                out.print(json.toString());
-                
-                return;
-            }
-            
-           //Inserire altre operazioni
+				response.setContentType("application/json");
+				PrintWriter out = response.getWriter();
+				JSONObject json = new JSONObject();
+				synchronized (session) {
+					json.put("nuovoTotale", cart.getNumeroElementi());
+				}
+				out.print(json.toString());
+				return;
+			}
+			
+			if ("removeAjax".equals(action)) {
+				int idProdotto = Integer.parseInt(request.getParameter("id"));
+				
+				synchronized (session) {
+					cart.rimuoviProdotto(idProdotto);
+					session.setAttribute("carrello", cart);
+				}
 
-        } catch (SQLException e) {
-            System.out.println("Errore Database: " + e.getMessage());
-        }
-        
-        
-        //Non chiamata ajax
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/common/carrello.jsp");
-        dispatcher.forward(request, response);
-    }
+				response.setContentType("application/json");
+				PrintWriter out = response.getWriter();
+				JSONObject json = new JSONObject();
+				synchronized (session) {
+					json.put("nuovoTotale", cart.getNumeroElementi());
+					json.put("prezzoTotale", cart.prezzoTotale());
+				}
+				out.print(json.toString());
+				return;
+			}
+			
+			if ("updateAjax".equals(action)) {
+				int idProdotto = Integer.parseInt(request.getParameter("id"));
+				int quantita = Integer.parseInt(request.getParameter("quantita"));
+				
+				synchronized (session) {
+					cart.impostaQuantità(idProdotto, quantita);
+					session.setAttribute("carrello", cart);
+				}
+
+				response.setContentType("application/json");
+				PrintWriter out = response.getWriter();
+				JSONObject json = new JSONObject();
+				synchronized (session) {
+					json.put("nuovoTotale", cart.getNumeroElementi());
+					json.put("prezzoTotale", cart.prezzoTotale());
+				}
+				out.print(json.toString());
+				return;
+			}
+			
+			if ("clearAjax".equals(action)) {
+				synchronized (session) {
+					cart.svuota();
+					session.setAttribute("carrello", cart);
+				}
+
+				response.setContentType("application/json");
+				PrintWriter out = response.getWriter();
+				JSONObject json = new JSONObject();
+				synchronized (session) {
+					json.put("nuovoTotale", 0);
+					json.put("prezzoTotale", 0.0);
+				}
+				out.print(json.toString());
+				return;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Errore Database: " + e.getMessage());
+		}
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/common/carrello.jsp");
+		dispatcher.forward(request, response);
+	}
 }
