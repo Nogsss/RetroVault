@@ -11,7 +11,11 @@
 <body>
 
     <header>
-        <h1>Catalogo RetroVault</h1>
+        <nav>
+        <a href="${pageContext.request.contextPath}/carrello">
+            🛒 Carrello (<span id="cart-counter">${not empty sessionScope.carrello ? sessionScope.carrello.numeroElementi : '0'}</span>)
+        </a>
+    </nav>
     </header>
 
     <main>
@@ -24,7 +28,6 @@
                         <div class="prodotto-card">
                             <img src="${pageContext.request.contextPath}/images/${prodotto.imgPath}" alt="<c:out value='${prodotto.nome}'/>">
                             
-                            <!-- c:out ci protegge iniettando il testo in modo sicuro -->
                             <h2><c:out value="${prodotto.nome}"/></h2>
                             <p>Categoria: <c:out value="${prodotto.categoria}"/></p>
                             <p><c:out value="${prodotto.descrizione}"/></p>
