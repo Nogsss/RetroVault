@@ -6,14 +6,11 @@ function aggiungiAlCarrello(idProdotto) {
         	if (this.readyState == 4 && this.status == 200) {
             	var response = JSON.parse(this.responseText);
             	document.getElementById("cart-counter").innerHTML = response.nuovoTotale;
-            	var feedback = document.getElementById("feedback-msg");
-            	feedback.innerHTML = "Prodotto aggiunto al carrello!";
         	}
 		}
 	};
 	
 	setTimeout(function() { 
-		feedback.innerHTML = "";
 		if(request.readyState < 4){
 			request.abort();
 		}
