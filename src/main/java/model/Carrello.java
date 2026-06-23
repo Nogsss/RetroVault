@@ -28,6 +28,10 @@ public class Carrello implements Serializable{
 		this.prodotti = prodotti;
 	}
 	
+	public int getNumeroElementi() {
+	    return prodotti.size();
+	}
+	
 	//metodi di gestione carrello
 	
 	public void aggiungiProdotto(Prodotto prodotto, int quantità) {
