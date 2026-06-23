@@ -29,7 +29,11 @@ public class Carrello implements Serializable{
 	}
 	
 	public int getNumeroElementi() {
-	    return prodotti.size();
+		int totale = 0;
+		for (ElementoCarrello el : prodotti) {
+			totale += el.getQuantità();
+		}
+		return totale;
 	}
 	
 	//metodi di gestione carrello
