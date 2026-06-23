@@ -77,7 +77,7 @@ public class CarrelloControl extends HttpServlet {
         
         
         //Non chiamata ajax
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/common/carrello.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/common/carrello.jsp");
         dispatcher.forward(request, response);
     }
 }
