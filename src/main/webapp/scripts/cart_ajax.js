@@ -1,4 +1,4 @@
-function aggiungiAlCarrello(idProdotto, quantita) {
+function aggiungiAlCarrello(idProdotto, quantita, path) {
     var request = createXMLHttpRequest();
     //callback
     if(request){
@@ -16,7 +16,7 @@ function aggiungiAlCarrello(idProdotto, quantita) {
 		}
 	}, 15000);
  	
-    var url ="RetroVault/carrello?action=addAjax&id=" + idProdotto + "&quantita=" + quantita;
+	var url = path + "/carrello?action=addAjax&id=" + idProdotto + "&quantita=" + quantita;
     
     request.open("GET", url, true);
     request.send();

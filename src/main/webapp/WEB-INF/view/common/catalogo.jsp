@@ -43,7 +43,9 @@
                             <h3>Prezzo: <c:out value="${prodotto.prezzo}"/> &euro;</h3>
                             
                             <a href="${pageContext.request.contextPath}/dettaglio?id=${prodotto.id}">Vedi Dettagli</a>
-                            <button onclick="aggiungiAlCarrello(${prodotto.id}, document.getElementById('quantita_${prodotto.id}').value))">Aggiungi al Carrello</button>
+                            <button onclick="aggiungiAlCarrello(${prodotto.id}, document.getElementById('quantita_${prodotto.id}').value, '${pageContext.request.contextPath}')">
+                            Aggiungi al Carrello
+                            </button>
                             <input type="number" id="quantita_${prodotto.id}" name="quantita" value="1" min="1">
                         </div>
                     </c:forEach>
