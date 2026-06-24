@@ -12,4 +12,5 @@ public interface ProdottoDao {
 	public boolean doDelete(int id) throws SQLException;
 	public Prodotto doRetrieveByKey(int id) throws SQLException;
 	public List<Prodotto> doRetrieveAll() throws SQLException;
+	public List<Prodotto> doRetrieveAllAdmin() throws SQLException;
 }
