@@ -34,7 +34,9 @@ public class OrdineDaoImpl implements OrdineDao{
         		" (id_ordine, id_prodotto, quantita, prezzo_acquisto) VALUES (?, ?, ?, ?)";
         
         String queryProdotto = "UPDATE " + TABLE_PRODOTTO + 
-        		" SET quantita_disp = quantita_disp - ? WHERE id_prodotto = ? AND quantita_disp >= ?";
+        		" SET quantita_disp = quantita_disp - ?, "
+        		+ "attivo = CASE WHEN (quantita_disp - ?) = 0 THEN false ELSE attivo END  "
+        		+ "WHERE id_prodotto = ? AND quantita_disp >= ?";
 
         try(Connection connection = ds.getConnection()) {
         	
@@ -83,8 +85,9 @@ public class OrdineDaoImpl implements OrdineDao{
         				
         				// Decremento la quantita nel db
         				psProdotto.setInt(1, det.getQuantita());
-        				psProdotto.setInt(2, det.getIdProdotto());
-        				psProdotto.setInt(3, det.getQuantita());
+        				psProdotto.setInt(2, det.getQuantita());
+        				psProdotto.setInt(3, det.getIdProdotto());
+        				psProdotto.setInt(4, det.getQuantita());
         				
         				int rowsUpdated = psProdotto.executeUpdate();
         				if(rowsUpdated == 0) {
