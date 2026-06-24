@@ -52,7 +52,6 @@
                             <h3>Prezzo: <c:out value="${prodotto.prezzo}"/> &euro;</h3>
                             
                             <div class="card-actions">
-                                <a href="${pageContext.request.contextPath}/dettaglio?id=${prodotto.id}" class="btn-secondary">Dettagli</a>
                                 <input type="number" id="quantita_${prodotto.id}" name="quantita" value="1" min="1" class="qty-input">
                                 <button onclick="aggiungiAlCarrello(${prodotto.id}, document.getElementById('quantita_${prodotto.id}').value, '${pageContext.request.contextPath}')" class="btn-primary">
                                     Aggiungi
