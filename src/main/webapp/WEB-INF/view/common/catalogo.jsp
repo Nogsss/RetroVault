@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/main.css">
     <script src="${pageContext.request.contextPath}/scripts/cart_ajax.js"></script>
 </head>
-<body>
+<body class="catalog-body">
 
     <header class="navbar">
         <div class="logo">
