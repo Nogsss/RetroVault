@@ -10,6 +10,7 @@ public class DettaglioOrdine implements Serializable {
 	private int idProdotto;
 	private int quantita;
 	private double prezzoAcquisto;
+	private String nomeProdotto;
 	
 	public DettaglioOrdine() {}
 
@@ -45,4 +46,11 @@ public class DettaglioOrdine implements Serializable {
 		this.prezzoAcquisto = prezzoAcquisto;
 	}
 
+	public String getNomeProdotto() {
+		return nomeProdotto;
+	}
+
+	public void setNomeProdotto(String nomeProdotto) {
+		this.nomeProdotto = nomeProdotto;
+	}
 }
