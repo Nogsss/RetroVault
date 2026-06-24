@@ -355,6 +355,49 @@ h1::after {
     margin-bottom: 0.5rem;
 }
 
+.product-form-card {
+    max-width: 650px !important;
+}
+
+.form-textarea {
+    resize: vertical;
+    font-family: inherit;
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+.admin-actions-bar {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.row-inactive {
+    opacity: 0.6;
+}
+
+.status-active {
+    color: var(--success);
+    font-weight: 600;
+}
+
+.status-inactive {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+.desc-small {
+    min-height: auto !important;
+}
+
+.btn-small {
+    padding: 0.5rem 0.8rem !important;
+    font-size: 0.8rem !important;
+}
+
 /* -------------------------------------------------------------
    ORDER HISTORY LAYOUT
 ------------------------------------------------------------- */
