@@ -338,6 +338,24 @@ h1::after {
 }
 
 /* -------------------------------------------------------------
+   ORDER HISTORY LAYOUT
+------------------------------------------------------------- */
+.order-items-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.order-items-list li {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.order-items-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* -------------------------------------------------------------
    PRODUCT CATALOG (GRID & CARDS)
 ------------------------------------------------------------- */
 .prodotti-grid {
