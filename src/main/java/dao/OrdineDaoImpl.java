@@ -18,6 +18,7 @@ public class OrdineDaoImpl implements OrdineDao{
 
 	private static final String TABLE_ORDINE = "ordine";
 	private static final String TABLE_DETTAGLIO = "dettaglio_ordine";
+	private static final String TABLE_PRODOTTO = "prodotto";
 	private DataSource ds = null;
 	
 	public OrdineDaoImpl(DataSource ds) {
@@ -31,6 +32,9 @@ public class OrdineDaoImpl implements OrdineDao{
         
         String queryDettaglio = "INSERT INTO " + TABLE_DETTAGLIO + 
         		" (id_ordine, id_prodotto, quantita, prezzo_acquisto) VALUES (?, ?, ?, ?)";
+        
+        String queryProdotto = "UPDATE " + TABLE_PRODOTTO + 
+        		" SET quantita_disp = quantita_disp - ? WHERE id_prodotto = ? AND quantita_disp >= ?";
 
         try(Connection connection = ds.getConnection()) {
         	
@@ -66,8 +70,9 @@ public class OrdineDaoImpl implements OrdineDao{
                     }
         		}
         		
-        		//Adesso opero sulla seconda tabella dettaglio_ordine
-        		try(PreparedStatement psDettaglio = connection.prepareStatement(queryDettaglio)){
+        		//Adesso opero sulla seconda tabella dettaglio_ordine e decremento la quantita dei prodotti
+        		try(PreparedStatement psDettaglio = connection.prepareStatement(queryDettaglio);
+        		    PreparedStatement psProdotto = connection.prepareStatement(queryProdotto)){
         			for(DettaglioOrdine det : ordine.getDettagli()) { //Aggiungo i dettagli dell'ordine uno alla volta con un for
         				psDettaglio.setInt(1, idOrdine);
         				psDettaglio.setInt(2, det.getIdProdotto());
@@ -75,6 +80,16 @@ public class OrdineDaoImpl implements OrdineDao{
         				psDettaglio.setDouble(4, det.getPrezzoAcquisto());
         				
         				psDettaglio.executeUpdate();
+        				
+        				// Decremento la quantita nel db
+        				psProdotto.setInt(1, det.getQuantita());
+        				psProdotto.setInt(2, det.getIdProdotto());
+        				psProdotto.setInt(3, det.getQuantita());
+        				
+        				int rowsUpdated = psProdotto.executeUpdate();
+        				if(rowsUpdated == 0) {
+        					throw new SQLException("La quantità richiesta per il prodotto '" + det.getNomeProdotto() + "' non è disponibile in magazzino.");
+        				}
         			}
         		}
         		connection.commit(); //A questo punto le operazioni sono tutte terminate correttamente e posso committare
