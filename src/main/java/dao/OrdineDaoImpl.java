@@ -159,8 +159,9 @@ public class OrdineDaoImpl implements OrdineDao{
 	
 	//Metodo per caricare i dettagli di un ordine
 	private void caricaDettagliOrdine(Connection connection, Ordine ordine) throws SQLException {
-        String query = "SELECT * FROM " + TABLE_DETTAGLIO + 
-        		" WHERE id_ordine = ?";
+        String query = "SELECT d.*, p.nome FROM " + TABLE_DETTAGLIO + " d " +
+                       "JOIN prodotto p ON d.id_prodotto = p.id_prodotto " +
+                       "WHERE d.id_ordine = ?";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             
         	ps.setInt(1, ordine.getIdOrdine());
@@ -172,6 +173,7 @@ public class OrdineDaoImpl implements OrdineDao{
                     det.setIdProdotto(rs.getInt("id_prodotto"));
                     det.setQuantita(rs.getInt("quantita"));
                     det.setPrezzoAcquisto(rs.getDouble("prezzo_acquisto"));
+                    det.setNomeProdotto(rs.getString("nome"));
                     
                     ordine.addDettaglio(det);
                 }
