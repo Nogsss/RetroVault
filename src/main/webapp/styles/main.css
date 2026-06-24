@@ -398,6 +398,30 @@ h1::after {
     font-size: 0.8rem !important;
 }
 
+.filter-box {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.filter-grid {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+    min-width: 200px;
+}
+
 /* -------------------------------------------------------------
    ORDER HISTORY LAYOUT
 ------------------------------------------------------------- */
