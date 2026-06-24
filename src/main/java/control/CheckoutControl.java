@@ -135,6 +135,7 @@ public class CheckoutControl extends HttpServlet {
                 dettaglio.setIdProdotto(item.getProdotto().getId());
                 dettaglio.setQuantita(item.getQuantità());
                 dettaglio.setPrezzoAcquisto(item.getProdotto().getPrezzo());
+                dettaglio.setNomeProdotto(item.getProdotto().getNome());
                 dettagli.add(dettaglio);
             }
         }
@@ -154,8 +155,23 @@ public class CheckoutControl extends HttpServlet {
             //Redirect alla pagina di checkout avvenuto con successo che verrà catturato dal metodo doGet
             response.sendRedirect(request.getContextPath() + "/common/checkout?status=success");
         } catch (SQLException e) {
-            errors.add("Si è verificato un errore durante il salvataggio dell'ordine. Riprova più tardi.");
+            String msg = e.getMessage();
+            if (msg != null && msg.contains("quantità richiesta")) {
+                errors.add(msg);
+            } else {
+                errors.add("Si è verificato un errore durante il salvataggio dell'ordine. Riprova più tardi.");
+            }
+            //Rimando gli attributi indietro per ripopolare il form in caso di fallimento del checkout
             request.setAttribute("errors", errors);
+            request.setAttribute("nome", nome);
+            request.setAttribute("cognome", cognome);
+            request.setAttribute("telefono", telefono);
+            request.setAttribute("via_num", viaNum);
+            request.setAttribute("citta", citta);
+            request.setAttribute("cap", cap);
+            request.setAttribute("provincia", provincia);
+            request.setAttribute("metodo_pagamento", metodoPagamento);
+            
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/common/checkout.jsp");
             dispatcher.forward(request, response);
         }
