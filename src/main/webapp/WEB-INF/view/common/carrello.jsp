@@ -100,7 +100,7 @@
                             <a href="${pageContext.request.contextPath}/catalogo" class="btn-secondary">
                                 Continua lo Shopping
                             </a>
-                            <a href="${pageContext.request.contextPath}/checkout" class="btn-primary">
+                            <a href="${pageContext.request.contextPath}/common/checkout" class="btn-primary">
                                 Procedi al Checkout
                             </a>
                         </div>
