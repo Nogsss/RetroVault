@@ -337,6 +337,24 @@ h1::after {
     margin-top: 2rem;
 }
 
+.admin-badge {
+    font-size: 0.8rem;
+    font-weight: normal;
+    vertical-align: middle;
+    color: var(--text-secondary);
+}
+
+.intro-text {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.card-icon {
+    font-size: 3rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
 /* -------------------------------------------------------------
    ORDER HISTORY LAYOUT
 ------------------------------------------------------------- */
