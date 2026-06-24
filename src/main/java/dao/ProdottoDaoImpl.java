@@ -132,4 +132,31 @@ public class ProdottoDaoImpl implements ProdottoDao{
 	        }
 	        return prodotti;
 	    }
+
+	@Override
+	public synchronized List<Prodotto> doRetrieveAllAdmin() throws SQLException {
+		List<Prodotto> prodotti = new ArrayList<>();
+		String query = "SELECT * FROM " + TABLE_NAME;
+
+		try (Connection connection = ds.getConnection();
+			 PreparedStatement ps = connection.prepareStatement(query)) {
+			
+			try(ResultSet rs = ps.executeQuery()){
+				while (rs.next()) {
+					Prodotto elem = new Prodotto();
+					elem.setId(rs.getInt("id_prodotto"));
+					elem.setNome(rs.getString("nome"));
+					elem.setDescrizione(rs.getString("descrizione"));
+					elem.setCategoria(rs.getString("categoria"));
+					elem.setPrezzo(rs.getDouble("prezzo"));
+					elem.setQuantitàDisponibile(rs.getInt("quantita_disp"));
+					elem.setAttivo(rs.getBoolean("attivo"));
+					elem.setImgPath(rs.getString("img_path"));
+				
+					prodotti.add(elem);
+				}
+			}
+		}
+		return prodotti;
+	}
 }
