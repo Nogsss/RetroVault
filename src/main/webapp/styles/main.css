@@ -316,6 +316,28 @@ h1::after {
 }
 
 /* -------------------------------------------------------------
+   CHECKOUT & SUCCESS PAGE SPECIFIC STYLES
+------------------------------------------------------------- */
+.checkout-card {
+    max-width: 600px !important;
+}
+
+.btn-submit-checkout {
+    margin-top: 1.5rem !important;
+}
+
+.success-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    color: var(--success);
+}
+
+.cart-actions-center {
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+/* -------------------------------------------------------------
    PRODUCT CATALOG (GRID & CARDS)
 ------------------------------------------------------------- */
 .prodotti-grid {

@@ -33,7 +33,7 @@
     </header>
 
     <main class="container">
-        <div class="auth-card" style="max-width: 600px;">
+        <div class="auth-card checkout-card">
             <h1>Spedizione & Pagamento</h1>
 
             <c:if test="${not empty errors}">
@@ -118,7 +118,7 @@
                         <span id="errorMetodo" class="error-alerts"></span>
                     </div>
 
-                    <input type="submit" value="Conferma Ordine" class="btn-primary" style="margin-top: 1.5rem;">
+                    <input type="submit" value="Conferma Ordine" class="btn-primary btn-submit-checkout">
                 </fieldset>
             </form>
         </div>

@@ -33,11 +33,11 @@
 
     <main class="container">
         <div class="empty-cart-message">
-            <div style="font-size: 4rem; margin-bottom: 1.5rem; color: var(--success);">✓</div>
+            <div class="success-icon">✓</div>
             <h1>Ordine Completato!</h1>
             <p>Grazie per aver acquistato su RetroVault. Il tuo ordine è stato registrato con successo nel nostro database ed il carrello è stato svuotato.</p>
             
-            <div class="cart-actions" style="justify-content: center; margin-top: 2rem;">
+            <div class="cart-actions cart-actions-center">
                 <a href="${pageContext.request.contextPath}/catalogo" class="btn-primary">
                     Torna al Catalogo
                 </a>
