@@ -1,5 +1,5 @@
 const namePattern = /^[a-zA-Z\s]+$/;
-const phonePattern = /^\d{9,11}$/;
+const phonePattern = /^\d{10}$/;
 const capPattern = /^\d{5}$/;
 const provPattern = /^[a-zA-Z]{2}$/;
 
@@ -34,7 +34,7 @@ function validatePhone(inputElem, spanElem) {
         return false;
     }
     if (!inputElem.value.match(phonePattern)) {
-        spanElem.innerHTML = "Il numero di telefono deve contenere da 9 a 11 cifre.";
+        spanElem.innerHTML = "Il numero di telefono deve contenere 10 cifre.";
         inputElem.style.borderColor = "red";
         return false;
     }
