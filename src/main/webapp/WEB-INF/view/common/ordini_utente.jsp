@@ -22,6 +22,7 @@
             </a>
             <c:choose>
                 <c:when test="${not empty sessionScope.utente}">
+                	<a href="${pageContext.request.contextPath}/common/ordini" class="active">I miei ordini</a>
                     <a href="${pageContext.request.contextPath}/logout">Logout</a>
                 </c:when>
                 <c:otherwise>
